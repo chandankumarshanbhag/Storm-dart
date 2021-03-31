@@ -1,27 +1,28 @@
 ## Dart library for modern web server
+#### * This project is still under development. *
 
+### Example code
 ```dart
-import 'package:dartlearn/storm.dart';
+import 'package:storm/storm.dart';
 
-Future main() async {
-  StormApp _app = StormApp(port: 4040);
+void main(List<String> arguments) {
+  Storm _app = Storm(port: 4040);
 
   _app.use(Route(
-      path: "/",
+      path: '/',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.send("<h1>hello</h1>");
+        response.send('<h1>hello</h1>');
       }));
 
   _app.use(Route(
-      path: "/index",
+      path: '/index',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.send("<h1>hello</h1>");
+        response.send('<h1>hello</h1>');
       }));
 
   _app.start();
 }
-
 
 ```

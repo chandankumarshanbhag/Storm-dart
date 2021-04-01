@@ -20,14 +20,14 @@ class Storm {
 
   /// For initializing routes
   void use(Route _route) {
-    this._routes.add(_route);
+    _routes.add(_route);
   }
 
   /// Starts the server
   Future<bool> start() async {
     var server = await HttpServer.bind(
       InternetAddress.loopbackIPv4,
-      this.port,
+      port,
     );
     print('Listening on localhost:${this.port}');
 
@@ -43,6 +43,6 @@ class Storm {
   }
 
   bool _matchPath(Uri routePath, Uri requestPath) {
-    return true;
+    return routePath.path == requestPath.path;
   }
 }

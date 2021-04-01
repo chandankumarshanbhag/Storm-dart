@@ -7,16 +7,14 @@ void main(List<String> arguments) {
       path: '/',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.send({
-          "a": 10
-        });
+        response.send({'a': 10});
       }));
 
   _app.use(Route(
       path: '/index',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.send('<h1>hello</h1>');
+        response.sendHTML('<h1>hello</h1>');
       }));
 
   _app.start();

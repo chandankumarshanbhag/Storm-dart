@@ -11,10 +11,10 @@ void main(List<String> arguments) {
       }));
 
   _app.use(Route(
-      path: '/index',
+      path: '/about',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.sendHTML('<h1>hello</h1>');
+        response.sendHTML('<h1>About working</h1>');
       }));
 
   _app.start();

@@ -44,7 +44,6 @@ class Storm {
   }
 
   bool _matchRequest(HttpRequest request, Route route) {
-    print(request.method);
     if (route.method == RequestMethod.ANY ||
         (request.method == 'GET' && route.method == RequestMethod.GET) ||
         (request.method == 'POST' && route.method == RequestMethod.POST) ||
@@ -52,8 +51,20 @@ class Storm {
         (request.method == 'DELETE' && route.method == RequestMethod.DELETE) ||
         (request.method == 'OPTIONS' &&
             route.method == RequestMethod.OPTIONS)) {
-      Uri _routePath = Uri.parse(route.path);
-      return request.uri.path == _routePath.path;
+      var _routePath = Uri.parse(route.path);
+      print(request.uri.pathSegments);
+      print(_routePath.pathSegments);
+      if (request.uri.pathSegments.length == _routePath.pathSegments.length) {
+        var match = true;
+        for (var i = 0; i < request.uri.pathSegments.length; i++) {
+          if (!_routePath.pathSegments[i].contains(RegExp(':.*')) && request.uri.pathSegments[i] != _routePath.pathSegments[i]) {
+            match = false;
+          }
+        }
+        return match;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }

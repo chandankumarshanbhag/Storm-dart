@@ -23,7 +23,7 @@ class Response {
     await close();
   }
 
-  void sendHTML(dynamic data) async {
+  void sendHTML(String data) async {
     response.headers.set('Content-type', 'text/html');
     response.writeln(data);
     await close();

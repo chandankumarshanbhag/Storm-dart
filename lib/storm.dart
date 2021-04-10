@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:storm/request_method.dart';
 import 'package:storm/route.dart';
 import 'package:storm/request.dart';
 import 'package:storm/response.dart';
@@ -33,7 +34,7 @@ class Storm {
 
     await for (HttpRequest request in server) {
       for (Route route in _routes) {
-        if (_matchPath(Uri.parse(route.path), request.uri)) {
+        if (_matchRequest(request, route)) {
           route.handler(
               Request(request: request), Response(response: request.response));
           break;
@@ -42,7 +43,19 @@ class Storm {
     }
   }
 
-  bool _matchPath(Uri routePath, Uri requestPath) {
-    return routePath.path == requestPath.path;
+  bool _matchRequest(HttpRequest request, Route route) {
+    print(request.method);
+    if (route.method == RequestMethod.ANY ||
+        (request.method == 'GET' && route.method == RequestMethod.GET) ||
+        (request.method == 'POST' && route.method == RequestMethod.POST) ||
+        (request.method == 'PUT' && route.method == RequestMethod.PUT) ||
+        (request.method == 'DELETE' && route.method == RequestMethod.DELETE) ||
+        (request.method == 'OPTIONS' &&
+            route.method == RequestMethod.OPTIONS)) {
+      Uri _routePath = Uri.parse(route.path);
+      return request.uri.path == _routePath.path;
+    } else {
+      return false;
+    }
   }
 }

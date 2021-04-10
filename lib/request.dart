@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:storm/storm.dart';
 
-class Request{
+class Request {
   HttpRequest request;
-  Request({this.request});
+  Map<String, dynamic> params;
+  Request({this.request, this.params});
 }

@@ -11,11 +11,15 @@ void main(List<String> arguments) {
       }));
 
   _app.use(Route(
-      path: '/about',
+      path: '/about/:id',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
+        print("Request params");
+        print(request.params);
         response.sendHTML('<h1>About working</h1>');
       }));
+  
+  
 
   _app.start();
 }

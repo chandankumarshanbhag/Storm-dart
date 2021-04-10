@@ -30,13 +30,20 @@ class Storm {
       InternetAddress.loopbackIPv4,
       port,
     );
-    print('Listening on localhost:${this.port}');
+
+    print('Listening on localhost:$port');
 
     await for (HttpRequest request in server) {
-      for (Route route in _routes) {
+      for (var route in _routes) {
         if (_matchRequest(request, route)) {
           route.handler(
-              Request(request: request), Response(response: request.response));
+              Request(
+                request: request,
+                params: _requestParams(request, route),
+              ),
+              Response(
+                response: request.response,
+              ));
           break;
         }
       }
@@ -52,12 +59,11 @@ class Storm {
         (request.method == 'OPTIONS' &&
             route.method == RequestMethod.OPTIONS)) {
       var _routePath = Uri.parse(route.path);
-      print(request.uri.pathSegments);
-      print(_routePath.pathSegments);
       if (request.uri.pathSegments.length == _routePath.pathSegments.length) {
         var match = true;
         for (var i = 0; i < request.uri.pathSegments.length; i++) {
-          if (!_routePath.pathSegments[i].contains(RegExp(':.*')) && request.uri.pathSegments[i] != _routePath.pathSegments[i]) {
+          if (!_routePath.pathSegments[i].contains(RegExp(':.*')) &&
+              request.uri.pathSegments[i] != _routePath.pathSegments[i]) {
             match = false;
           }
         }
@@ -68,5 +74,17 @@ class Storm {
     } else {
       return false;
     }
+  }
+
+  Map<String, dynamic> _requestParams(HttpRequest request, Route route) {
+    var requestParams = <String, dynamic>{};
+    var _routePath = Uri.parse(route.path);
+    for (var i = 0; i < _routePath.pathSegments.length; i++) {
+      if (_routePath.pathSegments[i].contains(RegExp(':.*'))) {
+        requestParams[_routePath.pathSegments[i].replaceFirst(':', '')] =
+            request.uri.pathSegments[i];
+      }
+    }
+    return requestParams;
   }
 }

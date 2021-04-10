@@ -14,6 +14,8 @@ void main(List<String> arguments) {
       path: '/about/:id',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
+        print("Request params");
+        print(request.params);
         response.sendHTML('<h1>About working</h1>');
       }));
   

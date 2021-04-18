@@ -59,7 +59,7 @@ class Storm {
         (request.method == 'OPTIONS' &&
             route.method == RequestMethod.OPTIONS)) {
       var _routePath = Uri.parse(route.path);
-      if (request.uri.pathSegments.length == _routePath.pathSegments.length) {
+      if (request.uri.pathSegments.where((x) => x!='').length == _routePath.pathSegments.where((x) => x!='').length) {
         var match = true;
         for (var i = 0; i < request.uri.pathSegments.length; i++) {
           if (!_routePath.pathSegments[i].contains(RegExp(':.*')) &&

@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:storm/storm.dart';
 
 class Request {
-  HttpRequest request;
+  HttpRequest _request;
+  Map<String, dynamic> queryParameters;
   Map<String, dynamic> params;
-  Request({this.request, this.params});
+  Request({HttpRequest request, this.params})
+      : _request = request,
+        queryParameters = request.uri.queryParameters;
 }

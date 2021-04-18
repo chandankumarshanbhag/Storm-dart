@@ -22,7 +22,8 @@ void main(List<String> arguments) {
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
         print(request.params);
-        response.sendHTML('<h1>About working</h1>');
+        print(request.queryParameters["hello"]);
+        response.sendHTML('<h1>About working ${request.queryParameters["hello"]}</h1>');
       }));
 
   _app.start();

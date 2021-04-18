@@ -3,6 +3,16 @@
 
 
 ![Storm Logo](https://i.ibb.co/YfGNLBv/storm.png)
+
+### Todo
+
+- [x] Route handling
+- [x] Dynamic routes
+- [x] Query parameters
+- [ ] Post data parse (multipart/form-data, url-encoded )
+- [ ] Plugins
+
+
 ### Example code
 ```dart
 import 'package:storm/storm.dart';

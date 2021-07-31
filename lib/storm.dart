@@ -4,6 +4,7 @@ import 'package:storm/request_method.dart';
 import 'package:storm/route.dart';
 import 'package:storm/request.dart';
 import 'package:storm/response.dart';
+import 'package:storm/storm_plugin.dart';
 
 export 'package:storm/route.dart';
 export 'package:storm/request.dart';
@@ -15,9 +16,17 @@ class Storm {
   final int port;
 
   /// Application routes
+  List<StormPlugin> _plugins = [];
+
+  /// Application routes
   List<Route> _routes = [];
 
   Storm({this.port});
+
+  /// For initializing plugins
+  void plugin(StormPlugin plugin) {
+    _plugins.add(plugin);
+  }
 
   /// For initializing routes
   void use(Route _route) {
@@ -31,19 +40,26 @@ class Storm {
       port,
     );
 
+    _plugins.forEach((plugin) {
+      plugin.init(this);
+    });
+
     print('Listening on localhost:$port');
 
     await for (HttpRequest request in server) {
       for (var route in _routes) {
         if (_matchRequest(request, route)) {
-          route.handler(
-              Request(
-                request: request,
-                params: _requestParams(request, route),
-              ),
-              Response(
-                response: request.response,
-              ));
+          var req = Request(
+            request: request,
+            params: _requestParams(request, route),
+          );
+          var res = Response(
+            response: request.response,
+          );
+          for (var plugin in _plugins) {
+            res = plugin.run(req, res);
+          }
+          route.handler(req, res);
           break;
         }
       }
@@ -59,7 +75,8 @@ class Storm {
         (request.method == 'OPTIONS' &&
             route.method == RequestMethod.OPTIONS)) {
       var _routePath = Uri.parse(route.path);
-      if (request.uri.pathSegments.where((x) => x!='').length == _routePath.pathSegments.where((x) => x!='').length) {
+      if (request.uri.pathSegments.where((x) => x != '').length ==
+          _routePath.pathSegments.where((x) => x != '').length) {
         var match = true;
         for (var i = 0; i < request.uri.pathSegments.length; i++) {
           if (!_routePath.pathSegments[i].contains(RegExp(':.*')) &&

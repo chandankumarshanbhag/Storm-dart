@@ -15,6 +15,10 @@ class Response {
     }
   }
 
+  void setHeader(String header, String value) {
+    response.headers.set(header, value);
+  }
+
   void send(dynamic data) async {
     if (data is Map) {
       response.headers.set('Content-type', 'application/json; charset=utf-8');

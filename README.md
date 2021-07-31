@@ -9,7 +9,7 @@
 - [x] Route handling
 - [x] Dynamic routes
 - [x] Query parameters
-- [ ] Post data parse (multipart/form-data, url-encoded )
+- [ ] Post body parse (multipart/form-data, url-encoded )
 - [ ] Plugins
 
 

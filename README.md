@@ -20,6 +20,8 @@ import 'package:storm/storm.dart';
 void main(List<String> arguments) {
   Storm _app = Storm(port: 4040);
 
+  _app.plugin(new Cors());
+
   _app.use(Route(
       path: '/',
       method: RequestMethod.ANY,

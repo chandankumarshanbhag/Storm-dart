@@ -1,7 +1,10 @@
+import 'package:storm/plugins/cors.dart';
 import 'package:storm/storm.dart';
 
 void main(List<String> arguments) {
   Storm _app = Storm(port: 4040);
+
+  _app.plugin(new Cors());
 
   _app.use(Route(
       path: '/',
@@ -23,7 +26,8 @@ void main(List<String> arguments) {
       handler: (Request request, Response response) {
         print(request.params);
         print(request.queryParameters["hello"]);
-        response.sendHTML('<h1>About working ${request.queryParameters["hello"]}</h1>');
+        response.sendHTML(
+            '<h1>About working ${request.queryParameters["hello"]}</h1>');
       }));
 
   _app.start();

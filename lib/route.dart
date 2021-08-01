@@ -10,7 +10,7 @@ class Route {
   final RequestMethod method;
   final RouteCallBack handler;
   const Route(
-      {@required this.path, @required this.method, @required this.handler})
+      {required this.path, required this.method, required this.handler})
       : assert(path != null),
         assert(method != null),
         assert(handler != null);

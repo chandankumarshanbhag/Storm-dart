@@ -1,10 +1,11 @@
-## Dart library for modern web server
+## A Dart package for developing modern web server
 #### * This project is still under development. *
 
 
-![Storm Logo](https://i.ibb.co/YfGNLBv/storm.png)
-
 ![Installing](https://pub.dev/packages/storm)
+
+
+![Storm Logo](https://i.ibb.co/YfGNLBv/storm.png)
 
 ### Todo
 

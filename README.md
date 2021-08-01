@@ -4,6 +4,8 @@
 
 ![Storm Logo](https://i.ibb.co/YfGNLBv/storm.png)
 
+![Installing](https://pub.dev/packages/storm)
+
 ### Todo
 
 - [x] Route handling

@@ -1,16 +1,16 @@
 import 'dart:io';
+import 'dart:convert' show utf8;
 
-import 'package:meta/meta.dart';
-import 'package:storm/request_method.dart';
-import 'package:storm/route.dart';
 import 'package:storm/request.dart';
+import 'package:storm/request_method.dart';
 import 'package:storm/response.dart';
+import 'package:storm/route.dart';
 import 'package:storm/storm_plugin.dart';
 
-export 'package:storm/route.dart';
 export 'package:storm/request.dart';
-export 'package:storm/response.dart';
 export 'package:storm/request_method.dart';
+export 'package:storm/response.dart';
+export 'package:storm/route.dart';
 
 class Storm {
   /// Server Port
@@ -51,9 +51,9 @@ class Storm {
       for (var route in _routes) {
         if (_matchRequest(request, route)) {
           var req = Request(
-            request: request,
-            params: _requestParams(request, route),
-          );
+              request: request,
+              params: _requestParams(request, route),
+              body: await Request.decodeBody(request));
           var res = Response(
             response: request.response,
           );

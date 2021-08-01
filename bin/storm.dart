@@ -10,7 +10,7 @@ void main(List<String> arguments) {
       path: '/',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.send({'a': 10});
+        response.send(request.body);
       }));
 
   app.use(Route(

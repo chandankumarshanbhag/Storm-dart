@@ -12,8 +12,8 @@
 - [x] Route handling
 - [x] Dynamic routes
 - [x] Query parameters
-- [ ] Post body parse (multipart/form-data, url-encoded )
-- [ ] Plugins
+- [x] Decode body (multipart/form-data, url-encoded )
+- [x] Plugins
 
 
 ### Example code
@@ -29,14 +29,24 @@ void main(List<String> arguments) {
       path: '/',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.send({'a': 10});
+        response.send(request.body);
       }));
 
   app.use(Route(
-      path: '/about',
+      path: '/about/:id/',
       method: RequestMethod.ANY,
       handler: (Request request, Response response) {
-        response.sendHTML('<h1>About working</h1>');
+        response.sendHTML('<h1>${request.params?["id"]}</h1>');
+      }));
+
+  app.use(Route(
+      path: '/posts/',
+      method: RequestMethod.ANY,
+      handler: (Request request, Response response) {
+        print(request.params);
+        print(request.queryParameters["hello"]);
+        response.sendHTML(
+            '<h1>About working ${request.queryParameters["hello"]}</h1>');
       }));
 
   app.start();

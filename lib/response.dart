@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'dart:convert';
-
-import 'package:meta/meta.dart';
+import 'dart:io';
 
 class Response {
   bool _requestClosed = false;
@@ -22,7 +20,7 @@ class Response {
   }
 
   void send(dynamic data) async {
-    if (data is Map) {
+    if (data is Map || data is Object) {
       response.headers.set('Content-type', 'application/json; charset=utf-8');
     }
     response.writeln(_jsonEncoder.convert(data));

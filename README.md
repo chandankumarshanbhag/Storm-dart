@@ -2,7 +2,7 @@
 #### * This project is still under development. *
 
 
-![Installing](https://pub.dev/packages/storm)
+[Installing](https://pub.dev/packages/storm)
 
 
 ![Storm Logo](https://i.ibb.co/YfGNLBv/storm.png)

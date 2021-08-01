@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:meta/meta.dart';
 import 'package:storm/request_method.dart';
 import 'package:storm/route.dart';
 import 'package:storm/request.dart';
@@ -21,7 +22,7 @@ class Storm {
   /// Application routes
   List<Route> _routes = [];
 
-  Storm({this.port});
+  Storm({required this.port});
 
   /// For initializing plugins
   void plugin(StormPlugin plugin) {
@@ -34,7 +35,7 @@ class Storm {
   }
 
   /// Starts the server
-  Future<bool> start() async {
+  Future<void> start() async {
     var server = await HttpServer.bind(
       InternetAddress.loopbackIPv4,
       port,

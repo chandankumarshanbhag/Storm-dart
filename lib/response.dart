@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:meta/meta.dart';
+
 class Response {
   bool _requestClosed = false;
   final JsonEncoder _jsonEncoder = JsonEncoder();
   final HttpResponse response;
 
-  Response({this.response});
+  Response({required this.response});
 
   Future<dynamic> close() async {
     if (!_requestClosed) {

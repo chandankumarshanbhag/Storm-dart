@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'dart:convert';
-
-import 'package:meta/meta.dart';
+import 'dart:io';
 
 class Response {
   bool _requestClosed = false;

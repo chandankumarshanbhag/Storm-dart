@@ -1,9 +1,8 @@
 import 'package:storm/request.dart';
-import 'package:storm/response.dart';
 import 'package:storm/request_method.dart';
-import 'package:meta/meta.dart';
+import 'package:storm/response.dart';
 
-typedef void RouteCallBack(Request request, Response response);
+typedef RouteCallBack = void Function(Request request, Response response);
 
 class Route {
   final String path;
